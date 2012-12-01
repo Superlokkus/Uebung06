@@ -4,31 +4,45 @@
 """Übung 06 Pendel"""
 #Markus Klemm WS12/13 Phy-BA
 
-import numpy
+import numpy as np
 import math
+import matplotlib.pyplot as plt
 
 #ToDo ArgParse
 
 FILENAME = "Pendel-Messung.dat"
 
-f = numpy.loadtxt(FILENAME)
+f = np.loadtxt(FILENAME)
 
 #Aufgabe 1
-print "Mittelwert: " + str(numpy.mean(f))
-print "Varianz: " + str(numpy.var(f)) + "s"
-print "Standardabweichug des Mittelwerts: " + str(float(numpy.std(f,ddof=1)/math.sqrt(len(f)))) + "s"
+print "Mittelwert: " + str(np.mean(f))
+print "Varianz: " + str(np.var(f)) + "s"
+print "Standardabweichug des Mittelwerts: " + str(float(np.std(f,ddof=1)/math.sqrt(len(f)))) + "s"
 
 #Aufgabe 2
 
 def myStat(myarray):
-    """Gibt den Mittelwert, die Varianz und die Standardabweichung zum Mittelwert, des übergebenen numpy.arrays, zurück"""
-    quer = str(numpy.mean(myarray))
-    var = str(numpy.var(myarray)) + "s"
-    sigmamittelwert = str(float(numpy.std(myarray,ddof=1)/math.sqrt(len(myarray)))) + "s"
+    """Gibt den Mittelwert, die Varianz und die Standardabweichung zum Mittelwert, des übergebenen np.arrays, zurück"""
+    quer = str(np.mean(myarray))
+    var = str(np.var(myarray)) + "s"
+    sigmamittelwert = str(float(np.std(myarray,ddof=1)/math.sqrt(len(myarray)))) + "s"
     return (quer,var,sigmamittelwert)
-   
+ 
+
+
 for x in range(len(f)+1):
     tmp = f[:x+1]
     myStat(tmp)
 
+#Aufgabe 3
+plt.figure()
+plt.ylabel("Zeit in s")
+plt.xlabel("Messung")
+plt.title("Entwicklung von Mittelwert und stat. Messabweichung")
+plt.plot(f,'go', label='Messwerte')
+
+
+plt.figure()
+plt.hist(f)
+plt.show()
 
