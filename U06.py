@@ -16,7 +16,7 @@ f = numpy.loadtxt(FILENAME)
 #Aufgabe 1
 print "Mittelwert: " + str(numpy.mean(f))
 print "Varianz: " + str(numpy.var(f)) + "s"
-print "Standardabweichug des Mittelwerts: " + str(float(numpy.std(f)/math.sqrt(len(f)))) + "s"
+print "Standardabweichug des Mittelwerts: " + str(float(numpy.std(f,ddof=1)/math.sqrt(len(f)))) + "s"
 
 #Aufgabe 2
 
@@ -24,7 +24,7 @@ def myStat(myarray):
     """Gibt den Mittelwert, die Varianz und die Standardabweichung zum Mittelwert, des übergebenen numpy.arrays, zurück"""
     quer = str(numpy.mean(myarray))
     var = str(numpy.var(myarray)) + "s"
-    sigmamittelwert = str(float(numpy.std(myarray)/math.sqrt(len(myarray)))) + "s"
+    sigmamittelwert = str(float(numpy.std(myarray,ddof=1)/math.sqrt(len(myarray)))) + "s"
     return (quer,var,sigmamittelwert)
    
 for x in range(len(f)+1):
