@@ -23,9 +23,9 @@ print "Standardabweichug des Mittelwerts: " + str(float(np.std(f,ddof=1)/math.sq
 
 def myStat(myarray):
     """Gibt den Mittelwert, die Varianz und die Standardabweichung zum Mittelwert, des übergebenen np.arrays, zurück"""
-    quer = str(np.mean(myarray))
-    var = str(np.var(myarray)) + "s"
-    sigmamittelwert = str(float(np.std(myarray,ddof=1)/math.sqrt(len(myarray)))) + "s"
+    quer = np.mean(myarray)
+    var = np.var(myarray)
+    sigmamittelwert = float(np.std(myarray,ddof=1)/math.sqrt(len(myarray)))
     return (quer,var,sigmamittelwert)
  
 
@@ -39,16 +39,25 @@ plt.figure()
 plt.ylabel("Zeit in s")
 plt.xlabel("Messung")
 plt.title("Entwicklung von Mittelwert und stat. Messabweichung")
-plt.plot(f,'go', label='Messwerte')
+plt.plot(f, label='Messwerte')
 
 #Errorbars für Messwerte
 for x in range(len(f)):
     x_z = np.std(f,ddof=1)/math.sqrt(len(f)) #Berechnung zufällige Messabweichung
     plt.errorbar(x,f[x],x_z)
 
-#Entwicklung Mittelwert
-plt.subplot()
 
+plt.figure()
+xquer = np.empty(0)
+#Entwicklung Mittelwert
+for x in range(len(f)+1):
+    tmp = f[:x+1]
+    
+    global xquer
+    xquer = np.append(xquer,myStat(tmp)[0])
+    plt.errorbar(x,xquer[x],myStat(tmp)[2],ecolor='b')
+
+plt.plot(xquer,label="Mittelwerte")
 
 plt.figure()
 plt.hist(f)
