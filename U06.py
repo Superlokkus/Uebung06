@@ -35,19 +35,19 @@ for x in range(len(f)+1):
     myStat(tmp)
 
 #Aufgabe 3
-plt.figure()
+plt.subplot(221)
 plt.ylabel("Zeit in s")
 plt.xlabel("Messung")
-plt.title("Entwicklung von Mittelwert und stat. Messabweichung")
 plt.plot(f, label='Messwerte')
-
+plt.title("Messwerte")
 #Errorbars für Messwerte
 for x in range(len(f)):
     x_z = np.std(f,ddof=1)/math.sqrt(len(f)) #Berechnung zufällige Messabweichung
     plt.errorbar(x,f[x],x_z)
 
 
-plt.figure()
+plt.subplot(222)
+plt.title("Mittelwert")
 xquer = np.empty(0)
 #Entwicklung Mittelwert
 for x in range(len(f)+1):
@@ -59,7 +59,5 @@ for x in range(len(f)+1):
 
 plt.plot(xquer,label="Mittelwerte")
 
-plt.figure()
-plt.hist(f)
 plt.show()
 
