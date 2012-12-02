@@ -69,5 +69,12 @@ plt.errorbar(range(len(f)+1),xquer,stdxquer, label="Std. Abweichung Mittelwert")
 
 plt.plot(xquer,label="Mittelwerte")
 plt.legend(fontsize="xx-small")
+
+#Aufgabe 4
+plt.subplot(223)
+plt.hist(f,int(math.sqrt(len(f))))
+plt.subplot(224)
+plt.hist(f,int(math.sqrt(len(f))),normed=True)
+
 plt.show()
 
