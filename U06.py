@@ -41,6 +41,14 @@ plt.xlabel("Messung")
 plt.title("Entwicklung von Mittelwert und stat. Messabweichung")
 plt.plot(f,'go', label='Messwerte')
 
+#Errorbars für Messwerte
+for x in range(len(f)):
+    x_z = np.std(f,ddof=1)/math.sqrt(len(f)) #Berechnung zufällige Messabweichung
+    plt.errorbar(x,f[x],x_z)
+
+#Entwicklung Mittelwert
+plt.subplot()
+
 
 plt.figure()
 plt.hist(f)
