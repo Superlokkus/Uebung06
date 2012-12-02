@@ -40,24 +40,34 @@ plt.ylabel("Zeit in s")
 plt.xlabel("Messung")
 plt.plot(f, label='Messwerte')
 plt.title("Messwerte")
+
 #Errorbars für Messwerte
+x_z = []
 for x in range(len(f)):
-    x_z = np.std(f,ddof=1)/math.sqrt(len(f)) #Berechnung zufällige Messabweichung
-    plt.errorbar(x,f[x],x_z)
+    global x_z
+    x_z.append(np.std(f,ddof=1)/math.sqrt(len(f))) #Berechnung zufällige Messabweichung
+    #plt.errorbar(x,f[x],x_z)
 
-
+plt.errorbar(range(len(f)),f,x_z, label="Zufaellige Messabweichung")
+plt.legend(fontsize="xx-small")
 plt.subplot(222)
-plt.title("Mittelwert")
-xquer = np.empty(0)
+plt.ylabel("Zeit in s")
+plt.xlabel("Messung")
+plt.title("Entwicklung des Mittelwertes")
 #Entwicklung Mittelwert
+xquer = np.empty(0)
+stdxquer = np.empty(0)
 for x in range(len(f)+1):
     tmp = f[:x+1]
     
     global xquer
+    global stdxquer
     xquer = np.append(xquer,myStat(tmp)[0])
-    plt.errorbar(x,xquer[x],myStat(tmp)[2],ecolor='b')
+    stdxquer = np.append(stdxquer,myStat(tmp)[2])
+    
+plt.errorbar(range(len(f)+1),xquer,stdxquer, label="Std. Abweichung Mittelwert")
 
 plt.plot(xquer,label="Mittelwerte")
-
+plt.legend(fontsize="xx-small")
 plt.show()
 
